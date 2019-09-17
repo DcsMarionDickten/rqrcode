@@ -135,7 +135,11 @@ png = qrcode.as_png(
   file: nil # path to write
 )
 
-IO.write("/tmp/github-qrcode.png", png.to_s)
+# IO.write("/tmp/github-qrcode.png", png.to_s)  
+# not possible, this will give an Encoding::UndefinedConversionError 
+# (BLOB problem within ChunkyPNG, see https://github.com/wvanbergen/chunky_png/issues/105)
+
+File.open(Rails.root.join('public', 'qrcode.png'), 'wb'){|f| f.write png.to_s} # wb because of BLOB
 ```
 
 ![QR code with github url](./images/github-qrcode.png)

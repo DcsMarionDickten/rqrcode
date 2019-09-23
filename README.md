@@ -129,7 +129,8 @@ png = qrcode.as_png(
   resize_exactly_to: false,
   fill: 'white',
   color: 'black',
-  size: 120,
+  size: 20, # values range from 8 to 20. Values < 8 or > 40 will throw Exception, values > 20 will result in empty graphic
+            # default is 8
   border_modules: 4,
   module_px_size: 6,
   file: nil # path to write

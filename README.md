@@ -121,7 +121,7 @@ The library can produce a PNG. Result will be a `ChunkyPNG::Image` instance.
 ```ruby
 require 'rqrcode'
 
-qrcode = RQRCode::QRCode.new("http://github.com/")
+qrcode = RQRCode::QRCode.new("http://github.com/") # here, a size option can be given. Good values range 8..20 (incl)
 
 # NOTE: showing with default options specified explicitly
 png = qrcode.as_png(
@@ -129,8 +129,7 @@ png = qrcode.as_png(
   resize_exactly_to: false,
   fill: 'white',
   color: 'black',
-  size: 20, # values range from 8 to 20. Values < 8 or > 40 will throw Exception, values > 20 will result in empty graphic
-            # default is 8
+  size: 120,
   border_modules: 4,
   module_px_size: 6,
   file: nil # path to write

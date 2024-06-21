@@ -121,7 +121,7 @@ The library can produce a PNG. Result will be a `ChunkyPNG::Image` instance.
 ```ruby
 require 'rqrcode'
 
-qrcode = RQRCode::QRCode.new("http://github.com/")
+qrcode = RQRCode::QRCode.new("http://github.com/") # here, a size option can be given. Good values range 8..20 (incl)
 
 # NOTE: showing with default options specified explicitly
 png = qrcode.as_png(
@@ -135,7 +135,11 @@ png = qrcode.as_png(
   file: nil # path to write
 )
 
-IO.write("/tmp/github-qrcode.png", png.to_s)
+# IO.write("/tmp/github-qrcode.png", png.to_s)  
+# not possible, this will give an Encoding::UndefinedConversionError 
+# (BLOB problem within ChunkyPNG, see https://github.com/wvanbergen/chunky_png/issues/105)
+
+File.open(Rails.root.join('public', 'qrcode.png'), 'wb'){|f| f.write png.to_s} # wb because of BLOB
 ```
 
 ![QR code with github url](./images/github-qrcode.png)
